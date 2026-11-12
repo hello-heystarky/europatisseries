@@ -100,8 +100,7 @@ export default function RootLayout({
                 <AppFrame>{children}</AppFrame>
                 <CartDrawer />
                 <Toaster />
-                {/* Phones: sit above the sticky order bar */}
-                <SonnerToaster mobileOffset={{ bottom: 88 }} />
+                <SonnerToaster />
               </TooltipProvider>
             </OrderProvider>
           </CartProvider>

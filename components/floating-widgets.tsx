@@ -8,6 +8,7 @@ import { BUSINESS } from "@/lib/site";
  * Bottom-right floating stack: a quiet contact button (call / SMS / email) with
  * a back-to-top square above it. One flex column anchored to the corner, so the
  * panel opens above the button and back-to-top hides while it's open.
+ * Phones get back-to-top only — Contact lives in the side menu and footer there.
  */
 export function FloatingWidgets() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,10 +30,7 @@ export function FloatingWidgets() {
   ];
 
   return (
-    // Desktop only: on phones the sticky header covers "back to top" (and iOS scrolls up on a
-    // status-bar tap), Contact lives in the side menu and footer, and the bottom of the screen
-    // belongs to the order bar (see mobile-order-bar).
-    <div className="fixed bottom-6 right-6 z-50 hidden flex-col items-end gap-2 md:flex">
+    <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-2 md:bottom-6 md:right-6">
       {/* Back to top — only once well down the page, and while contact is closed */}
       <button
         type="button"
@@ -77,7 +75,7 @@ export function FloatingWidgets() {
         onClick={() => setChatOpen((v) => !v)}
         aria-label={chatOpen ? "Close contact options" : "Contact us"}
         aria-expanded={chatOpen}
-        className="flex h-11 min-w-11 items-center justify-center gap-2.5 bg-euro-ink px-3.5 text-white shadow-[0_8px_24px_rgba(5,9,48,0.18)] transition-colors hover:bg-euro-accent md:px-4"
+        className="hidden h-11 min-w-11 items-center justify-center gap-2.5 bg-euro-ink px-3.5 text-white shadow-[0_8px_24px_rgba(5,9,48,0.18)] transition-colors hover:bg-euro-accent md:flex md:px-4"
       >
         {chatOpen ? (
           <X className="h-4 w-4" strokeWidth={1.4} />

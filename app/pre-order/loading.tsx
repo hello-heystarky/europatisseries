@@ -1,33 +1,28 @@
-import { Skeleton } from "@/components/ui/skeleton";
-
-// Shown while the live menu is fetched from Square (force-dynamic route).
+// Shown while the live menu is fetched from Square (force-dynamic route). Mirrors the
+// v4 menu page — heading, tab row, product grid — so the real page drops in without a jump.
 export default function PreOrderLoading() {
   return (
-    <>
-      {/* Hero (static, shows instantly) */}
-      <section className="border-b-2 border-border bg-primary px-5 py-20 text-center text-primary-foreground">
-        <p className="text-xs uppercase tracking-[0.35em] text-primary-foreground/60">Les Collections</p>
-        <h1 className="font-display text-7xl leading-none md:text-8xl">pre-order</h1>
-        <p className="mx-auto mt-4 max-w-md text-sm uppercase tracking-[0.15em] text-primary-foreground/70">
-          Premium European pastries &amp; catering, made in Armadale. Pickup or delivery.
-        </p>
-      </section>
-
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <Skeleton className="h-9 w-64 rounded-none" />
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex flex-col border-2 border-border bg-card">
-              <Skeleton className="aspect-square w-full rounded-none" />
-              <div className="space-y-3 p-5">
-                <Skeleton className="h-5 w-2/3 rounded-none" />
-                <Skeleton className="h-4 w-full rounded-none" />
-                <Skeleton className="mt-2 h-10 w-full rounded-none" />
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="bg-white px-6 pb-24 pt-10 md:px-12 md:pt-14" aria-busy="true" aria-label="Loading the menu">
+      <div className="flex flex-col items-center gap-3 text-center">
+        <p className="euro-eyebrow text-euro-muted">Order online · pickup or delivery</p>
+        <h1 className="euro-heading mr-[-0.2em] text-[clamp(28px,3vw,40px)] tracking-[0.2em] text-euro-ink">Menu</h1>
       </div>
-    </>
+
+      <div className="-mx-6 mt-9 flex items-center gap-7 overflow-hidden border-b border-euro-line px-6 py-4 md:-mx-12 md:px-12">
+        {[96, 104, 88, 132, 76].map((w, i) => (
+          <span key={i} className="h-2.5 flex-none bg-euro-tint" style={{ width: w }} />
+        ))}
+      </div>
+
+      <div className="mt-9 grid animate-pulse grid-cols-2 gap-x-3 gap-y-11 [animation-duration:2.4s] md:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="flex flex-col gap-3.5">
+            <div className="aspect-[4/5] bg-euro-tint" />
+            <span className="h-2.5 w-2/3 bg-euro-tint" />
+            <span className="h-2.5 w-1/4 bg-euro-tint" />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

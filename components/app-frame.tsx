@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 import { FloatingWidgets } from "./floating-widgets";
-import { MobileOrderBar } from "./mobile-order-bar";
 import { LoadingScreen } from "./LoadingScreen";
 
 /**
@@ -25,7 +24,6 @@ export function AppFrame({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <FloatingWidgets />
-      <MobileOrderBar />
       <Footer />
     </>
   );

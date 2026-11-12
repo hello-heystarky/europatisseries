@@ -8,8 +8,8 @@ const SLIDES = [
   { name: "Artisan Cakes", img: "/images/hero/artisan-cakes.jpg", alt: "Artisan cakes, tarts and mille-feuille on a table", tab: "cakes" },
   { name: "Le Croissant", img: "/images/hero/croissant.jpg", alt: "Croissants fresh from the oven", tab: "viennoiserie" },
   { name: "Éclairs", img: "/images/hero/eclairs.jpg", alt: "A row of éclairs", tab: "cakes" },
-  // Placeholder photo until the 5 Nov shoot (baguettes replace focaccia).
-  { name: "Baguettes", img: "/images/hero/focaccia.jpg", alt: "Filled baguettes and savouries", tab: "baguettes" },
+  // From the 5 Nov shoot (baguettes replace focaccia).
+  { name: "Baguettes", img: "/images/hero/baguettes.webp", alt: "A jambon-beurre baguette", tab: "baguettes" },
   { name: "Grab & Go", img: "/images/hero/grab-go.jpg", alt: "A golden steak pie", tab: "pies" },
 ];
 

@@ -6,6 +6,7 @@
  */
 import type { Menu, MenuItem, MenuModifier } from "./menu";
 import { CATERING_PACKS, indexMenuByName, resolvePack } from "./catering";
+import { shootPhoto } from "./shoot-photos";
 
 /** A choice the customer must make before adding (e.g. Fresh / Warm / Toasted, size). */
 export type ShopChoiceGroup = {
@@ -141,7 +142,8 @@ function toShopItem(item: MenuItem, sample: boolean): ShopItem | null {
     name: displayName(item.name),
     squareName: item.name,
     description: item.description,
-    imageUrl: item.imageUrl,
+    // New shoot photos first so every tile matches; Square's own photo otherwise.
+    imageUrl: shootPhoto(item.name) ?? item.imageUrl,
     fromCents,
     variationId: v0.id,
     variationName: PLAIN_VARIATIONS.test(v0.name) ? "" : v0.name,
