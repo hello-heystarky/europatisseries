@@ -6,7 +6,7 @@ import { BTN_ON_PHOTO, BTN_ON_PHOTO_OUTLINE, PhotoHero, Split } from "@/componen
 import { BUSINESS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "The Café — Dine In at Euro Patisserie Armadale",
+  title: "Le Café — Dine In at Euro Patisserie Armadale",
   description:
     "Visit the Euro Patisserie café at 974 High St, Armadale. Dine-in pastries, cakes and coffee, a leafy dog-friendly courtyard, open 7 days 7am–3pm.",
   alternates: { canonical: "/cafe" },
@@ -39,7 +39,7 @@ const INFO = [
 export default function CafePage() {
   return (
     <div className="bg-white">
-      <PhotoHero img={OUTDOOR} alt="Euro Patisserie café in Armadale" eyebrow="Armadale · Dine in" title="The Café">
+      <PhotoHero img={OUTDOOR} alt="Euro Patisserie café in Armadale" eyebrow="Armadale · Dine in" title="Le Café">
         <p className="max-w-[560px] text-[15px] leading-[1.8] text-white/90">
           Buttery viennoiserie, French cakes and proper coffee — served fresh in our light-filled Armadale café and
           leafy, dog-friendly courtyard.

@@ -26,7 +26,7 @@ const LEFT_LINKS = [
 const DRAWER_LINKS = [
   { name: "Menu", path: "/pre-order" },
   { name: "Catering & Events", path: "/catering" },
-  { name: "The Café", path: "/cafe" },
+  { name: "Le Café", path: "/cafe" },
   { name: "Gift Cards", path: "/gift-cards" },
   { name: "Our Story", path: "/about" },
   { name: "Join the Team", path: "/join-team" },
@@ -193,7 +193,7 @@ export function Navbar() {
               href="/cafe"
               className="hidden text-[12.5px] font-medium uppercase tracking-[0.1em] transition-opacity hover:opacity-70 lg:block"
             >
-              The Café
+              Le Café
             </Link>
             <a
               aria-label="Euro Patisserie on Instagram"

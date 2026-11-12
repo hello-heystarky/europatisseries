@@ -72,7 +72,7 @@ export function Footer() {
           <h2 className="euro-label text-euro-ink">About</h2>
           <nav aria-label="About" className="mt-2 flex flex-col gap-2.5 text-sm">
             <Link href="/about" className="hover:text-euro-ink">Our story</Link>
-            <Link href="/cafe" className="hover:text-euro-ink">The café</Link>
+            <Link href="/cafe" className="hover:text-euro-ink">Le Café</Link>
             <Link href="/gift-cards" className="hover:text-euro-ink">Gift cards</Link>
             <Link href="/join-team" className="hover:text-euro-ink">Join the team</Link>
             <Link href="/pre-order#faq" className="hover:text-euro-ink">FAQ</Link>
