@@ -62,15 +62,17 @@ export function ShopSection({
   initialItem,
 }: {
   shop: Shop;
-  variant?: "home" | "full";
+  /** "catering" = the /catering page: the platters on their own, no category tabs. */
+  variant?: "home" | "full" | "catering";
   initialTab?: string;
   /** Opens this item's panel on arrival (e.g. from the header search). */
   initialItem?: string;
 }) {
+  const cateringOnly = variant === "catering";
   const full = variant === "full";
   const allTabs = [...shop.core, ...shop.more];
   const validTab = initialTab && (initialTab === CATERING || allTabs.some((t) => t.id === initialTab));
-  const [tabId, setTabId] = useState(validTab ? initialTab : (shop.core[0]?.id ?? CATERING));
+  const [tabId, setTabId] = useState(cateringOnly ? CATERING : validTab ? initialTab : (shop.core[0]?.id ?? CATERING));
   const [showMore, setShowMore] = useState(false);
   const [openId, setOpenId] = useState<string | null>(() =>
     initialItem && allTabs.some((t) => t.id === initialTab && t.items.some((i) => i.id === initialItem)) ? initialItem : null,
@@ -121,12 +123,18 @@ export function ShopSection({
     <section
       ref={sectionRef}
       id="shop"
-      className={`relative flex scroll-mt-[108px] flex-col gap-9 px-6 md:px-12 ${full ? "pb-24 pt-10 md:pt-14" : "py-20 md:py-24"}`}
+      className={`relative flex scroll-mt-[108px] flex-col gap-9 px-6 md:px-12 ${full || cateringOnly ? "pb-24 pt-10 md:pt-14" : "py-20 md:py-24"}`}
     >
       {full && (
         <div className="flex flex-col items-center gap-3 text-center">
           <p className="euro-eyebrow text-euro-muted">Order online · pickup or delivery</p>
           <h1 className="euro-heading mr-[-0.2em] text-[clamp(28px,3vw,40px)] tracking-[0.2em] text-euro-ink">Menu</h1>
+        </div>
+      )}
+      {cateringOnly && (
+        <div className="flex flex-col items-center gap-3 text-center">
+          <p className="euro-eyebrow text-euro-muted">Platters for the office, parties &amp; events</p>
+          <h1 className="euro-heading mr-[-0.2em] text-[clamp(28px,3vw,40px)] tracking-[0.2em] text-euro-ink">Catering</h1>
         </div>
       )}
       <div
@@ -138,7 +146,7 @@ export function ShopSection({
         <div
           role="tablist"
           aria-label="Menu categories"
-          className="-mx-6 flex w-[calc(100%+3rem)] flex-nowrap gap-x-7 overflow-x-auto px-6 [scrollbar-width:none] md:mx-0 md:w-auto md:flex-wrap md:gap-x-8 md:gap-y-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden"
+          className={`${cateringOnly ? "!hidden " : ""}-mx-6 flex w-[calc(100%+3rem)] flex-nowrap gap-x-7 overflow-x-auto px-6 [scrollbar-width:none] md:mx-0 md:w-auto md:flex-wrap md:gap-x-8 md:gap-y-2 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden`}
         >
           {[...shop.core.map((t) => ({ id: t.id, name: t.name })), { id: CATERING, name: "Catering" }].map((t) => (
             <TabButton key={t.id} on={t.id === tabId} onClick={() => pick(t.id)}>
@@ -168,7 +176,7 @@ export function ShopSection({
         </div>
 
         {/* Phones: the pickup/delivery + time bar comes first, full width, above the tabs. */}
-        <div className="order-first flex w-full items-center gap-7 border-b border-euro-line pb-2 md:order-none md:w-auto md:border-0 md:pb-0">
+        <div className={`order-first flex w-full items-center gap-7 border-b border-euro-line pb-2 md:order-none md:w-auto md:border-0 md:pb-0 ${cateringOnly ? "md:ml-auto" : ""}`}>
           <button
             type="button"
             onClick={() => setCalOpen((o) => !o)}
@@ -180,7 +188,7 @@ export function ShopSection({
               <path d={calOpen ? "m6 15 6-6 6 6" : "m6 9 6 6 6-6"} />
             </svg>
           </button>
-          {!full && (
+          {variant === "home" && (
             <Link href={`${MENU_PAGE}?tab=${tabId}`} className="hidden items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-euro-muted hover:text-euro-ink md:flex">
               Full menu
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
@@ -247,7 +255,7 @@ export function ShopSection({
           )}
         </div>
       ) : (
-        <Catering packs={shop.packs} currency={shop.currency} onChangeTime={() => setCalOpen(true)} />
+        <Catering packs={shop.packs} currency={shop.currency} onChangeTime={() => setCalOpen(true)} onPage={cateringOnly} />
       )}
 
       {isPhone && calOpen && (
@@ -417,7 +425,18 @@ function ListLayout({
   );
 }
 
-function Catering({ packs, currency, onChangeTime }: { packs: ShopPack[]; currency: string; onChangeTime: () => void }) {
+function Catering({
+  packs,
+  currency,
+  onChangeTime,
+  onPage = false,
+}: {
+  packs: ShopPack[];
+  currency: string;
+  onChangeTime: () => void;
+  /** On /catering itself the "bigger event" link jumps down the page instead. */
+  onPage?: boolean;
+}) {
   const [guests, setGuests] = useState(10);
   const { addLine } = useCart();
   const order = useOrder();
@@ -503,7 +522,7 @@ function Catering({ packs, currency, onChangeTime }: { packs: ShopPack[]; curren
       </div>
       <p className="text-center text-xs uppercase tracking-[0.1em] text-euro-soft">
         $100 minimum per catering order · 24 hours notice · Free delivery over $150 ·{" "}
-        <Link href="/catering" className="text-euro-ink underline underline-offset-4">
+        <Link href={onPage ? "#events" : "/catering#events"} className="text-euro-ink underline underline-offset-4">
           Plan a bigger event
         </Link>
       </p>

@@ -1,0 +1,38 @@
+# LIVE app "europatisseries" (europatisseries.fly.dev, also patisseries.com.au + www).
+# Square server keys live in Fly secrets on this app (SQUARE_ACCESS_TOKEN etc.).
+# Deploy:  fly deploy --app europatisseries --remote-only
+# Pre-launch: NOINDEX keeps it out of search, CHECKOUT_DISABLED blocks orders server-side.
+# To open ordering: remove both, add the NEXT_PUBLIC_SQUARE_* build args, redeploy.
+app = "europatisseries"
+primary_region = "syd"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[build.args]
+  NEXT_PUBLIC_SITE_URL = "https://europatisseries.fly.dev"
+  NOINDEX = "1"
+
+[env]
+  NOINDEX = "1"
+  CHECKOUT_DISABLED = "1"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "4s"
+    grace_period = "30s"
+    method = "GET"
+    path = "/"
+
+[[vm]]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1

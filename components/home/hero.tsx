@@ -5,11 +5,10 @@ import { selectShopTab } from "./shop-events";
 
 /** Hero slides — each collection name links to its tab in the shop below. */
 const SLIDES = [
-  { name: "Artisan Cakes", img: "/images/hero/artisan-cakes.jpg", alt: "Artisan cakes, tarts and mille-feuille on a table", tab: "cakes" },
+  { name: "Artisan Cakes", img: "/images/hero/artisan-cakes.webp", alt: "Slices of cheesecake and cake topped with berries", tab: "cakes" },
   { name: "Le Croissant", img: "/images/hero/croissant.jpg", alt: "Croissants fresh from the oven", tab: "viennoiserie" },
   { name: "Éclairs", img: "/images/hero/eclairs.jpg", alt: "A row of éclairs", tab: "cakes" },
-  // From the 5 Nov shoot (baguettes replace focaccia).
-  { name: "Baguettes", img: "/images/hero/baguettes.webp", alt: "A jambon-beurre baguette", tab: "baguettes" },
+    { name: "Baguettes", img: "/images/hero/baguettes.webp", alt: "Baguette sandwiches with egg, tomato, ham and cornichons", tab: "baguettes" },
   { name: "Grab & Go", img: "/images/hero/grab-go.jpg", alt: "A golden steak pie", tab: "pies" },
 ];
 
