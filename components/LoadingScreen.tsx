@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AnimatedLogo } from "./animated-logo";
+import { AnimatedLogo, WRITE_SECONDS } from "./animated-logo";
 
 /** Opening screen: calm navy, the logo writes itself in, then the page fades up. */
 export function LoadingScreen() {
@@ -10,7 +10,7 @@ export function LoadingScreen() {
 
   useEffect(() => {
     // Long enough for the script to finish writing and "euro" to settle.
-    const timer = setTimeout(() => setIsLoading(false), 1350);
+    const timer = setTimeout(() => setIsLoading(false), WRITE_SECONDS * 1000 + 450);
     return () => clearTimeout(timer);
   }, []);
 
