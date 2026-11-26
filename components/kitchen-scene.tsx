@@ -61,12 +61,12 @@ export function KitchenScene() {
     if (!ready || still) return;
     const a = anims.current[active];
     a?.goToAndStop(0, true);
-    // Start it as it appears (after the outgoing scene's 500ms exit).
-    const start = setTimeout(() => a?.play(), 500);
+    // Start it as it appears.
+    const start = setTimeout(() => a?.play(), 150);
     const next = setTimeout(() => setActive((n) => (n + 1) % SCENES.length), SCENES[active].ms);
     // Stop the one that just left once its exit has finished.
     const prev = (active + SCENES.length - 1) % SCENES.length;
-    const rest = setTimeout(() => anims.current[prev]?.stop(), 600);
+    const rest = setTimeout(() => anims.current[prev]?.stop(), 300);
     return () => {
       clearTimeout(start);
       clearTimeout(next);
@@ -82,9 +82,9 @@ export function KitchenScene() {
           <div
             key={s.src}
             aria-hidden="true"
-            // Out first (shrink + fade), then the next one grows in once the stage is clear.
-            className={`absolute inset-0 transition-[opacity,transform] duration-500 ease-out ${
-              on ? "scale-100 opacity-100 delay-500" : "scale-95 opacity-0"
+            // Quick swap: the old scene shrinks out (200ms) as the next grows in just behind it (150ms delay, 300ms).
+            className={`absolute inset-0 transition-[opacity,transform] ease-out ${
+              on ? "scale-100 opacity-100 duration-300 delay-150" : "scale-95 opacity-0 duration-200"
             }`}
           >
             {/* The artwork sits in the middle of a square frame; the 3:2 box trims the empty top and bottom. */}
