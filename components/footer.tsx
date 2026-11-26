@@ -100,7 +100,8 @@ export function Footer() {
           </form>
           <p className="text-xs leading-relaxed">
             *From $59 of purchase, excluding delivery. By subscribing you agree to receive emails from Euro
-            Patisserie and accept our Privacy Policy. You can unsubscribe at any time.
+            Patisserie and accept our{" "}
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-euro-ink">Privacy Policy</Link>. You can unsubscribe at any time.
           </p>
         </div>
       </div>
@@ -125,6 +126,7 @@ export function Footer() {
         <Link href="/catering" className="hover:text-euro-ink">Catering</Link>
         <Link href="/gift-cards" className="hover:text-euro-ink">Gift cards</Link>
         <Link href="/pre-order#faq" className="hover:text-euro-ink">FAQ</Link>
+        <Link href="/privacy" className="hover:text-euro-ink">Privacy policy</Link>
       </nav>
       {/* Extra bottom room on mobile so the floating chat/back-to-top buttons don't cover it */}
       <p className="px-6 pb-28 pt-6 text-center text-[12.5px] md:pb-6">
